@@ -1,12 +1,12 @@
 /**
  * Variables Configuration
  * =======================
- * 
+ *
  * CENTRAL PLACE TO DEFINE ALL SHARED VARIABLES
- * 
+ *
  * This file defines all variables that can be shared across sections.
  * AI agents should read this file to understand what variables are available.
- * 
+ *
  * USAGE:
  * 1. Define variables here with their default values and metadata
  * 2. Use them in any section with: const x = useVar('variableName', defaultValue)
@@ -55,106 +55,240 @@ export interface VariableDefinition {
  * =====================================================
  * 🎯 DEFINE YOUR VARIABLES HERE
  * =====================================================
- * 
- * SUPPORTED TYPES:
- * 
- * 1. NUMBER (slider):
- *    { defaultValue: 5, type: 'number', min: 0, max: 10, step: 1 }
- * 
- * 2. TEXT (free text):
- *    { defaultValue: 'Hello', type: 'text', placeholder: 'Enter text...' }
- * 
- * 3. SELECT (dropdown):
- *    { defaultValue: 'sine', type: 'select', options: ['sine', 'cosine', 'tangent'] }
- * 
- * 4. BOOLEAN (toggle):
- *    { defaultValue: true, type: 'boolean' }
- * 
- * 5. ARRAY (list of numbers):
- *    { defaultValue: [1, 2, 3], type: 'array' }
- * 
- * 6. OBJECT (complex data):
- *    { defaultValue: { x: 5, y: 10 }, type: 'object', schema: '{ x: number, y: number }' }
  */
 export const variableDefinitions: Record<string, VariableDefinition> = {
     // ========================================
-    // ADD YOUR VARIABLES HERE
+    // SECTION 1: What is a Limit?
     // ========================================
 
-    // Uncomment and modify these examples for your lesson:
-
-    /*
-    // ─────────────────────────────────────────
-    // NUMBER - Use with sliders
-    // ─────────────────────────────────────────
-    myValue: {
-        defaultValue: 5,
+    // Zoom level for infinite zoom visualization
+    limitZoomLevel: {
+        defaultValue: 1,
         type: 'number',
-        label: 'My Value',
-        description: 'A number that controls something',
-        unit: 'm',           // optional unit display
+        label: 'Zoom Level',
+        description: 'Controls how zoomed in the view is near the limit point',
+        min: 1,
+        max: 100,
+        step: 1,
+        color: '#62D0AD',
+    },
+
+    // The x-value we are approaching
+    limitApproachX: {
+        defaultValue: 2,
+        type: 'number',
+        label: 'Approach X',
+        description: 'The x-value we are approaching to find the limit',
+        min: -5,
+        max: 5,
+        step: 0.1,
+        color: '#8E90F5',
+    },
+
+    // Current f(x) value display
+    limitCurrentFx: {
+        defaultValue: 4,
+        type: 'number',
+        label: 'Current f(x)',
+        description: 'The current function value at the approach point',
+        min: -10,
+        max: 10,
+        step: 0.01,
+        color: '#F7B23B',
+    },
+
+    // Question for section 1
+    limitQuestionOne: {
+        defaultValue: '',
+        type: 'text',
+        label: 'Limit Question 1',
+        description: 'Student answer for the first limit question',
+        placeholder: '?',
+        correctAnswer: '4',
+        color: '#62D0AD',
+    },
+
+    // ========================================
+    // SECTION 2: Limits When Undefined
+    // ========================================
+
+    // Filler point y-position for the hole game
+    holeFillerY: {
+        defaultValue: 2,
+        type: 'number',
+        label: 'Filler Y Position',
+        description: 'The y-position of the point filling the hole',
+        min: 0,
+        max: 8,
+        step: 0.1,
+        color: '#ef4444',
+    },
+
+    // Target limit value (the correct answer)
+    holeTargetLimit: {
+        defaultValue: 4,
+        type: 'number',
+        label: 'Target Limit',
+        description: 'The actual limit value at the hole',
         min: 0,
         max: 10,
-        step: 0.5,
+        step: 0.1,
+        color: '#22c55e',
     },
 
-    // ─────────────────────────────────────────
-    // TEXT - Free text input
-    // ─────────────────────────────────────────
-    lessonTitle: {
-        defaultValue: 'My Lesson',
-        type: 'text',
-        label: 'Lesson Title',
-        description: 'The title of your lesson',
-        placeholder: 'Enter a title...',
-    },
-
-    // ─────────────────────────────────────────
-    // SELECT - Dropdown with options
-    // ─────────────────────────────────────────
-    difficulty: {
-        defaultValue: 'medium',
-        type: 'select',
-        label: 'Difficulty',
-        description: 'The difficulty level of the lesson',
-        options: ['easy', 'medium', 'hard', 'expert'],
-    },
-
-    // ─────────────────────────────────────────
-    // BOOLEAN - Toggle switch
-    // ─────────────────────────────────────────
-    showHints: {
-        defaultValue: true,
+    // Whether the hole is filled correctly
+    holeFilledCorrectly: {
+        defaultValue: false,
         type: 'boolean',
-        label: 'Show Hints',
-        description: 'Toggle to show or hide hints',
+        label: 'Hole Filled Correctly',
+        description: 'Whether the student has correctly filled the hole',
     },
 
-    // ─────────────────────────────────────────
-    // ARRAY - List of numbers
-    // ─────────────────────────────────────────
-    dataPoints: {
-        defaultValue: [1, 4, 9, 16, 25],
-        type: 'array',
-        label: 'Data Points',
-        description: 'Y-values for plotting a graph',
+    // Question for section 2
+    limitQuestionTwo: {
+        defaultValue: '',
+        type: 'text',
+        label: 'Limit Question 2',
+        description: 'Student answer for section 2 question',
+        placeholder: '?',
+        correctAnswer: '4',
+        color: '#8E90F5',
     },
 
-    // ─────────────────────────────────────────
-    // OBJECT - Complex structured data
-    // ─────────────────────────────────────────
-    graphSettings: {
-        defaultValue: { 
-            xMin: -10, 
-            xMax: 10, 
-            showGrid: true 
-        },
-        type: 'object',
-        label: 'Graph Settings',
-        description: 'Configuration for the graph display',
-        schema: '{ xMin: number, xMax: number, showGrid: boolean }',
+    // ========================================
+    // SECTION 3: One-Sided Limits
+    // ========================================
+
+    // Direction of approach: 'left' or 'right'
+    approachDirection: {
+        defaultValue: 'left',
+        type: 'select',
+        label: 'Approach Direction',
+        description: 'Whether approaching from left or right',
+        options: ['left', 'right'],
+        color: '#AC8BF9',
     },
-    */
+
+    // Current x position of the tracer
+    oneSidedTracerX: {
+        defaultValue: 0,
+        type: 'number',
+        label: 'Tracer X',
+        description: 'The x-position of the tracer point',
+        min: -3,
+        max: 3,
+        step: 0.05,
+        color: '#62CCF9',
+    },
+
+    // Left limit value display
+    leftLimitValue: {
+        defaultValue: 1,
+        type: 'number',
+        label: 'Left Limit',
+        description: 'The limit value when approaching from the left',
+        min: -5,
+        max: 5,
+        step: 0.01,
+        color: '#F7B23B',
+    },
+
+    // Right limit value display
+    rightLimitValue: {
+        defaultValue: 3,
+        type: 'number',
+        label: 'Right Limit',
+        description: 'The limit value when approaching from the right',
+        min: -5,
+        max: 5,
+        step: 0.01,
+        color: '#F4A89A',
+    },
+
+    // Question for section 3
+    limitQuestionThree: {
+        defaultValue: '',
+        type: 'select',
+        label: 'One-Sided Limit Question',
+        description: 'Student answer for one-sided limit question',
+        placeholder: '?',
+        correctAnswer: 'does not exist',
+        options: ['1', '3', '2', 'does not exist'],
+        color: '#AC8BF9',
+    },
+
+    // ========================================
+    // SECTION 4: Limits to Derivatives
+    // ========================================
+
+    // The h value (distance between points)
+    derivativeH: {
+        defaultValue: 2,
+        type: 'number',
+        label: 'h value',
+        description: 'The distance between the two points on the curve',
+        min: 0.01,
+        max: 3,
+        step: 0.01,
+        color: '#F7B23B',
+    },
+
+    // The base x value (a)
+    derivativeA: {
+        defaultValue: 1,
+        type: 'number',
+        label: 'a value',
+        description: 'The base x-value where we calculate the derivative',
+        min: -2,
+        max: 3,
+        step: 0.1,
+        color: '#62D0AD',
+    },
+
+    // Current slope of secant line
+    secantSlope: {
+        defaultValue: 4,
+        type: 'number',
+        label: 'Secant Slope',
+        description: 'The slope of the secant line between the two points',
+        min: -10,
+        max: 10,
+        step: 0.01,
+        color: '#8E90F5',
+    },
+
+    // Actual derivative value
+    derivativeValue: {
+        defaultValue: 2,
+        type: 'number',
+        label: 'Derivative Value',
+        description: 'The actual derivative at point a',
+        min: -10,
+        max: 10,
+        step: 0.01,
+        color: '#22c55e',
+    },
+
+    // Question for section 4
+    limitQuestionFour: {
+        defaultValue: '',
+        type: 'text',
+        label: 'Derivative Question',
+        description: 'Student answer for derivative limit question',
+        placeholder: '?',
+        correctAnswer: '6',
+        color: '#62D0AD',
+    },
+
+    // Highlight variable for linked highlights
+    limitHighlight: {
+        defaultValue: '',
+        type: 'linkedHighlight',
+        label: 'Active Highlight',
+        description: 'Which element is currently highlighted',
+        color: '#62D0AD',
+        bgColor: 'rgba(98, 208, 173, 0.15)',
+    },
 };
 
 /**

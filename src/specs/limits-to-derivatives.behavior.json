@@ -1,0 +1,51 @@
+{
+  "sectionId": "limits-to-derivatives",
+  "learningObjective": "See how the derivative is defined as the limit of the slope of a secant line as two points converge",
+  "ahaMoment": "Watching the secant line tilt and become the tangent as h approaches zero",
+  "miniSpec": {
+    "title": "Difference Quotient Table",
+    "manipulated_variable": "derivativeH",
+    "primary_visual_feedback": "Secant line tilts toward tangent line, table shows slope converging to derivative",
+    "causal_chain_exposed": "Drag point closer → h decreases → slope updates → approaches 2a → secant becomes tangent",
+    "aha_moment": "As h→0, the secant slope converges to exactly 2a (the derivative)"
+  },
+  "modelVariables": {
+    "derivativeH": "the distance h between the two points (0.01-3)",
+    "derivativeA": "the base x-value where we calculate the derivative",
+    "secantSlope": "derived: the current slope of the secant line",
+    "derivativeValue": "derived: the actual derivative value (2a)"
+  },
+  "assertions": [
+    {
+      "id": "initial-state-poses-problem",
+      "description": "On load, h is large (2) so secant differs visibly from tangent — the gap invites exploration",
+      "expect": [
+        { "var": "derivativeH", "op": "==", "value": 2 },
+        { "var": "secantSlope", "op": "!=", "value": 2 }
+      ],
+      "visualCheck": "Orange secant line clearly tilted differently from green dashed tangent"
+    },
+    {
+      "id": "shrinking-h-changes-slope",
+      "description": "Reducing h causes the secant slope to approach the derivative",
+      "setup": { "derivativeH": 2, "derivativeA": 1 },
+      "action": { "var": "derivativeH", "to": 0.5 },
+      "expect": [
+        { "var": "derivativeH", "op": "==", "value": 0.5 },
+        { "var": "secantSlope", "op": "approx", "value": 2.5, "tolerance": 0.1 }
+      ],
+      "visualCheck": "Secant line tilts closer to tangent, table shows slope approaching 2"
+    },
+    {
+      "id": "small-h-nearly-matches-derivative",
+      "description": "At very small h, secant slope nearly equals the derivative",
+      "setup": { "derivativeH": 2, "derivativeA": 1 },
+      "action": { "var": "derivativeH", "to": 0.1 },
+      "expect": [
+        { "var": "derivativeH", "op": "approx", "value": 0.1, "tolerance": 0.02 },
+        { "var": "secantSlope", "op": "approx", "value": 2.1, "tolerance": 0.1 }
+      ],
+      "visualCheck": "Secant line nearly overlaps tangent, slope in table very close to 2"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "sectionId": "what-is-limit",
+  "learningObjective": "Understand what it means for a function to approach a value as x gets closer to a point",
+  "ahaMoment": "As you zoom in infinitely, the curve flattens toward a horizontal line at the limit value",
+  "miniSpec": {
+    "title": "Infinite Zoom / Magnifying Glass",
+    "manipulated_variable": "limitZoomLevel",
+    "primary_visual_feedback": "ViewBox shrinks around target point, curve appears to flatten toward limit value",
+    "causal_chain_exposed": "Higher zoom → smaller window → curve looks more linear → approaches horizontal line at y=4",
+    "aha_moment": "No matter how far you zoom, the function stays near y=4 at x=2"
+  },
+  "modelVariables": {
+    "limitZoomLevel": "zoom level controlling how zoomed in the view is (1-100)",
+    "limitCurrentFx": "derived: the current f(x) value displayed"
+  },
+  "assertions": [
+    {
+      "id": "initial-state-poses-problem",
+      "description": "On load, the zoom is at 1x showing the full curve, not yet zoomed to see the limit clearly",
+      "expect": [
+        { "var": "limitZoomLevel", "op": "==", "value": 1 }
+      ],
+      "visualCheck": "Full parabola visible, limit not yet obvious from curve shape"
+    },
+    {
+      "id": "zoom-shrinks-window",
+      "description": "Increasing zoom level shrinks the visible window around the target point",
+      "setup": { "limitZoomLevel": 1 },
+      "action": { "var": "limitZoomLevel", "to": 10 },
+      "expect": [
+        { "var": "limitZoomLevel", "op": "==", "value": 10 }
+      ],
+      "visualCheck": "Window shrinks to ±0.4 units around (2,4), curve appears flatter"
+    },
+    {
+      "id": "high-zoom-reveals-limit",
+      "description": "At high zoom, the curve appears nearly horizontal at the limit value",
+      "setup": { "limitZoomLevel": 1 },
+      "action": { "var": "limitZoomLevel", "to": 50 },
+      "expect": [
+        { "var": "limitZoomLevel", "op": "==", "value": 50 }
+      ],
+      "visualCheck": "Curve appears almost horizontal, green dashed line at y=4 is dominant"
+    }
+  ]
+}

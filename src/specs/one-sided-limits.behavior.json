@@ -1,0 +1,48 @@
+{
+  "sectionId": "one-sided-limits",
+  "learningObjective": "Understand that approaching from left vs right can yield different limit values",
+  "ahaMoment": "Toggling direction shows the limit changes from 1 to 3, proving the two-sided limit doesn't exist",
+  "miniSpec": {
+    "title": "Direction Toggle",
+    "manipulated_variable": "approachDirection",
+    "primary_visual_feedback": "Tracer point switches sides, limit readout changes value",
+    "causal_chain_exposed": "Toggle direction → tracer moves to that side → limit value updates → 1 vs 3 revealed",
+    "aha_moment": "Left limit is 1, right limit is 3 — they differ, so no two-sided limit exists"
+  },
+  "modelVariables": {
+    "approachDirection": "direction of approach: 'left' or 'right'",
+    "oneSidedTracerX": "x-position of the tracer point",
+    "leftLimitValue": "derived: the limit value when approaching from left (always 1)",
+    "rightLimitValue": "derived: the limit value when approaching from right (always 3)"
+  },
+  "assertions": [
+    {
+      "id": "initial-state-poses-problem",
+      "description": "On load, direction is 'left' showing one limit, inviting toggle to discover the difference",
+      "expect": [
+        { "var": "approachDirection", "op": "==", "value": "left" }
+      ],
+      "visualCheck": "Tracer on left side of x=0, amber colored, approaching y=1"
+    },
+    {
+      "id": "toggle-to-right-changes-limit",
+      "description": "Toggling to 'right' shows a different limit value",
+      "setup": { "approachDirection": "left" },
+      "action": { "var": "approachDirection", "to": "right" },
+      "expect": [
+        { "var": "approachDirection", "op": "==", "value": "right" }
+      ],
+      "visualCheck": "Tracer jumps to right side, coral colored, limit readout shows 3 instead of 1"
+    },
+    {
+      "id": "toggle-back-restores-left",
+      "description": "Toggling back to 'left' returns to the original limit",
+      "setup": { "approachDirection": "right" },
+      "action": { "var": "approachDirection", "to": "left" },
+      "expect": [
+        { "var": "approachDirection", "op": "==", "value": "left" }
+      ],
+      "visualCheck": "Tracer back on left side, amber colored, limit readout shows 1"
+    }
+  ]
+}

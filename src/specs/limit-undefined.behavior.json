@@ -1,0 +1,49 @@
+{
+  "sectionId": "limit-undefined",
+  "learningObjective": "Discover that limits can exist even when the function is undefined at that point",
+  "ahaMoment": "The limit exists at y=4 even though there's a hole in the function at x=2",
+  "miniSpec": {
+    "title": "Fill the Hole Game",
+    "manipulated_variable": "holeFillerY",
+    "primary_visual_feedback": "Point moves vertically, color changes to green when correctly placed",
+    "causal_chain_exposed": "Drag point → y-value updates → when y=4 the curve completes → limit discovered",
+    "aha_moment": "Placing the point at y=4 fills the hole perfectly, revealing the limit"
+  },
+  "modelVariables": {
+    "holeFillerY": "y-position of the draggable filler point (0-6)",
+    "holeFilledCorrectly": "derived: boolean whether the point is within tolerance of the correct limit"
+  },
+  "assertions": [
+    {
+      "id": "initial-state-poses-problem",
+      "description": "On load, the filler point is NOT at the correct position, hole is not filled",
+      "expect": [
+        { "var": "holeFillerY", "op": "!=", "value": 4 },
+        { "var": "holeFilledCorrectly", "op": "==", "value": false }
+      ],
+      "visualCheck": "Red point is visible but not at y=4, hole in the curve is obvious"
+    },
+    {
+      "id": "dragging-changes-y",
+      "description": "Dragging the point updates the y-position",
+      "setup": { "holeFillerY": 2 },
+      "action": { "var": "holeFillerY", "to": 3 },
+      "expect": [
+        { "var": "holeFillerY", "op": "==", "value": 3 },
+        { "var": "holeFilledCorrectly", "op": "==", "value": false }
+      ],
+      "visualCheck": "Point moves to y=3, still red, hole not filled"
+    },
+    {
+      "id": "correct-position-fills-hole",
+      "description": "Placing the point at y=4 fills the hole and triggers success",
+      "setup": { "holeFillerY": 2 },
+      "action": { "var": "holeFillerY", "to": 4 },
+      "expect": [
+        { "var": "holeFillerY", "op": "approx", "value": 4, "tolerance": 0.3 },
+        { "var": "holeFilledCorrectly", "op": "==", "value": true }
+      ],
+      "visualCheck": "Point turns green, positioned at the hole, success message appears"
+    }
+  ]
+}
